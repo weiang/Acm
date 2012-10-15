@@ -1,0 +1,159 @@
+103.c: (in function init_box_list)
+103.c:49:2: Function returns with possibly null storage derivable from
+               parameter pboxlist->head
+  A possibly null pointer is reachable from a parameter or global variable that
+  is not declared using a /*@null@*/ annotation. (Use -nullstate to inhibit
+  warning)
+   103.c:43:26: Storage pboxlist->head may become null
+103.c:49:2: Function returns with null storage derivable from parameter
+               pboxlist->head->scale
+   103.c:47:31: Storage pboxlist->head->scale becomes null
+103.c:49:2: Function returns with null storage derivable from parameter
+               pboxlist->head->next
+   103.c:46:30: Storage pboxlist->head->next becomes null
+103.c:49:2: Storage *(pboxlist->head) reachable from parameter contains 3
+               undefined fields: scale, num, next
+  Storage derivable from a parameter, return value or global is not defined.
+  Use /*@out@*/ to denote passed or returned storage which need not be defined.
+  (Use -compdef to inhibit warning)
+103.c: (in function order_insert)
+103.c:57:3: Implicitly only storage pboxlist->head->next (type struct box_node
+               *) not released before assignment: pboxlist->head->next = pnode
+  A memory leak has been detected. Only-qualified storage is not released
+  before the last reference to it is lost. (Use -mustfreeonly to inhibit
+  warning)
+103.c:57:3: Implicitly temp storage pnode assigned to implicitly only:
+               pboxlist->head->next = pnode
+  Temp storage (associated with a formal parameter) is transferred to a
+  non-temporary reference. The storage may be released or new aliases created.
+  (Use -temptrans to inhibit warning)
+103.c:72:4: Implicitly temp storage pnode assigned to implicitly only:
+               preptmp->next = pnode
+103.c:74:11: Last reference ptmp to implicitly only storage preptmp->next not
+                released before return
+   103.c:72:4: Original reference lost
+103.c:80:3: Implicitly temp storage pnode assigned to implicitly only:
+               ptmp->next = pnode
+103.c:84:3: Implicitly temp storage pnode assigned to implicitly only:
+               preptmp->next = pnode
+103.c:85:2: Clauses exit with pnode->next->next referencing implicitly only
+               storage in true branch, kept storage in false branch
+  The state of a variable is different depending on which branch is taken. This
+  means no annotation can sensibly be applied to the storage. (Use -branchstate
+  to inhibit warning)
+   103.c:83:3: Storage pnode->next->next becomes kept
+103.c:85:2: Clauses exit with pnode->next referencing implicitly only storage
+               in true branch, kept storage in false branch
+   103.c:83:3: Storage pnode->next becomes kept
+103.c:85:2: Clauses exit with ptmp referencing local storage in true branch,
+               implicitly only storage in false branch
+   103.c:84:3: Storage ptmp becomes implicitly only (through alias
+   preptmp->next)
+103.c:85:2: Clauses exit with ptmp->next referencing implicitly only storage in
+               true branch, kept storage in false branch
+   103.c:83:3: Storage ptmp->next becomes kept
+103.c:85:2: Clauses exit with pboxlist->head->next->next referencing implicitly
+               only storage in true branch, kept storage in false branch
+   103.c:83:3: Storage pboxlist->head->next->next becomes kept
+103.c:85:2: Storage preptmp->next->next->next is kept in one path, but live in
+               another.
+   103.c:83:3: Storage preptmp->next->next->next becomes kept
+103.c:85:2: Clauses exit with preptmp->next->next referencing implicitly only
+               storage in true branch, kept storage in false branch
+   103.c:83:3: Storage preptmp->next->next becomes kept
+103.c:87:2: Storage pboxlist->head->next->next reachable from parameter is
+               unqualified (should be implicitly only)
+  Storage derivable from a parameter does not match the alias kind expected for
+  the formal parameter. (Use -compmempass to inhibit warning)
+   103.c:83:3: Storage pboxlist->head->next->next becomes kept
+103.c:87:2: Storage pboxlist->head->next->next->next reachable from parameter
+               is kept (should be implicitly only)
+   103.c:83:3: Storage pboxlist->head->next->next->next becomes kept
+103.c: (in function cmp)
+103.c:95:6: Test expression for if is assignment expression: i = 0
+  The condition test is an assignment expression. Probably, you mean to use ==
+  instead of =. If an assignment is intended, add an extra parentheses nesting
+  (e.g., if ((a = b)) ...) to suppress this message. (Use -predassign to
+  inhibit warning)
+103.c:95:6: Test expression for if not boolean, type int: i = 0
+  Test expression type is not boolean or int. (Use -predboolint to inhibit
+  warning)
+103.c:99:2: Path with no return in function declared to return int
+  There is a path through a function declared to return a value on which there
+  is no return statement. This means the execution may fall through without
+  returning a meaningful result to the caller. (Use -noret to inhibit warning)
+103.c: (in function dp)
+103.c:195:38: Right operand of && is non-boolean (int):
+                 ptmp->num != pnode->num && is(pnode, ptmp)
+  The operand of a boolean operator is not a boolean. Use +ptrnegate to allow !
+  to be used on pointers. (Use -boolops to inhibit warning)
+103.c: (in function print_result)
+103.c:212:54: Right operand of && is non-boolean (int):
+                 path[ptmp->num] == path[pnode->num] - 1 && is(pnode, ptmp)
+103.c: (in function main)
+103.c:237:10: Possibly null storage vis passed as non-null param:
+                 memset (vis, ...)
+  A possibly null pointer is passed as a parameter corresponding to a formal
+  parameter with no /*@null@*/ annotation.  If NULL may be used for this
+  parameter, add a /*@null@*/ annotation to the function parameter declaration.
+  (Use -nullpass to inhibit warning)
+   103.c:235:14: Storage vis may become null
+103.c:238:10: Possibly null storage path passed as non-null param:
+                 memset (path, ...)
+   103.c:233:15: Storage path may become null
+103.c:243:9: Arrow access from possibly null pointer ptmp: ptmp->next
+  A possibly null pointer is dereferenced.  Value is either the result of a
+  function which may return null (in which case, code should check it is not
+  null), or a global, parameter or structure field declared with the null
+  qualifier. (Use -nullderef to inhibit warning)
+   103.c:241:16: Storage ptmp may become null
+103.c:249:19: Index of possibly null pointer ptmp->scale: ptmp->scale
+   103.c:245:25: Storage ptmp->scale may become null
+103.c:249:5: Return value (type int) ignored: scanf("%d", &(pt...
+  Result returned by function call is not used. If this is intended, can cast
+  result to (void) to eliminate message. (Use -retvalint to inhibit warning)
+103.c:250:9: Possibly null storage ptmp->scale derivable from parameter sort
+                (ptmp, ...)
+   103.c:245:25: Storage ptmp->scale may become null
+103.c:250:9: Null storage ptmp->next derivable from parameter sort (ptmp, ...)
+   103.c:243:19: Storage ptmp->next becomes null
+103.c:250:9: Passed storage *ptmp contains 1 undefined field: scale
+103.c:260:4: Return value (type int) ignored: dp(ptmp)
+103.c:277:17: Released storage box.head reachable from passed parameter
+  Memory is used after it has been released (either by passing as an only param
+  or assigning to an only global). (Use -usereleased to inhibit warning)
+   103.c:276:8: Storage box.head released
+103.c:278:2: Storage box.head is released in one path, but live in another.
+   103.c:276:8: Storage box.head released
+103.c:279:11: Global storage box contains 1 undefined field when call returns:
+                 head
+103.c:279:11: Function returns with global path referencing released storage
+  A global variable does not satisfy its annotations when control is
+  transferred. (Use -globstate to inhibit warning)
+   103.c:268:8: Storage path released
+103.c:279:11: Function returns with global vis referencing released storage
+   103.c:267:8: Storage vis released
+103.c:31:5: Variable exported but not used outside 103: dis
+  A declaration is exported, but not used outside this module. Declaration can
+  use static qualifier. (Use -exportlocal to inhibit warning)
+103.c:32:6: Variable exported but not used outside 103: vis
+103.c:33:6: Variable exported but not used outside 103: path
+103.c:34:5: Variable exported but not used outside 103: dim
+103.c:34:10: Variable exported but not used outside 103: boxnum
+103.c:35:11: Variable exported but not used outside 103: pmax_box_node
+103.c:36:10: Variable exported but not used outside 103: box
+103.c:38:6: Function exported but not used outside 103: init_box_list
+   103.c:49:1: Definition of init_box_list
+103.c:51:59: Function exported but not used outside 103: order_insert
+   103.c:87:1: Definition of order_insert
+103.c:89:5: Function exported but not used outside 103: cmp
+   103.c:99:1: Definition of cmp
+103.c:111:5: Function exported but not used outside 103: is
+   103.c:118:1: Definition of is
+103.c:166:6: Function exported but not used outside 103: sort
+   103.c:181:1: Definition of sort
+103.c:183:5: Function exported but not used outside 103: dp
+   103.c:204:1: Definition of dp
+103.c:206:6: Function exported but not used outside 103: print_result
+   103.c:222:1: Definition of print_result
+
